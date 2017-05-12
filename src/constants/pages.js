@@ -1,9 +1,6 @@
 function getDocUrl(filename) {
   return `docs/${filename}`;
 }
-function getCodeUrl(pathname) {
-  return `https://github.com/uber/deck.gl/tree/4.0-release/${pathname}`;
-}
 
 // mapping from file path in source to generated page url
 export const markdownFiles = {};
@@ -24,105 +21,6 @@ function generatePath(tree, parentPath = '') {
 
   return tree;
 }
-
-export const examplePages = generatePath([
-  {
-    name: 'Overview',
-    content: 'markdown/examples.md'
-  },
-  {
-    name: 'Core Layers',
-    expanded: true,
-    children: [
-      {
-        name: 'LineLayer',
-        content: {
-          demo: 'LineDemo',
-          code: getCodeUrl('examples/line')
-        }
-      },
-      {
-        name: 'HexagonLayer',
-        content: {
-          demo: 'HeatmapDemo',
-          code: getCodeUrl('examples/3d-heatmap')
-        }
-      },
-      // {
-      //   name: 'IconLayer',
-      //   content: {
-      //     demo: 'IconDemo',
-      //     code: getCodeUrl('examples/icon')
-      //   }
-      // },
-      {
-        name: 'GeoJsonLayer',
-        content: {
-          demo: 'GeoJsonDemo',
-          code: getCodeUrl('examples/geojson')
-        }
-      },
-      {
-        name: 'ScreenGridLayer',
-        content: {
-          demo: 'ScreenGridDemo',
-          code: getCodeUrl('examples/screen-grid')
-        }
-      },
-      {
-        name: 'ArcLayer',
-        content: {
-          demo: 'ArcDemo',
-          code: getCodeUrl('examples/arc')
-        }
-      },
-      {
-        name: 'ScatterplotLayer',
-        content: {
-          demo: 'ScatterplotDemo',
-          code: getCodeUrl('examples/scatterplot')
-        }
-      }
-    ]
-  },
-  {
-    name: 'Custom Layers',
-    expanded: true,
-    children: [
-      {
-        name: 'Brushing Layer',
-        content: {
-          demo: 'BrushingDemo',
-          code: getCodeUrl('examples/brushing')
-        }
-      },
-      {
-        name: 'Trip Routes',
-        content: {
-          demo: 'TripsDemo',
-          code: getCodeUrl('examples/trips')
-        }
-      }
-    ]
-  },
-  {
-    name: 'Beyond Maps',
-    expanded: true,
-    children: [
-      {
-        name: '3D Surface Explorer',
-        content: {
-          demo: 'PlotDemo',
-          code: getCodeUrl('examples/plot')
-        }
-      },
-      {
-        name: '3D Indoor Scan',
-        external: 'https://gnavvy.github.io/point-cloud-example/'
-      }
-    ]
-  }
-]);
 
 export const docPages = generatePath([
   {

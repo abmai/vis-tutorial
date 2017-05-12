@@ -3,7 +3,6 @@ const webpack = require('webpack');
 
 const rootDir = join(__dirname, '../..');
 const demoDir = join(__dirname, '..');
-const libSources = join(rootDir, 'src');
 const demoSources = join(demoDir, 'src');
 
 // Otherwise modules imported from outside this directory does not compile
@@ -13,7 +12,7 @@ const BABEL_CONFIG = {
   presets: [
     'es2015',
     'react',
-    'stage-2'
+    'stage-0'
   ].map(function(name) { return require.resolve("babel-preset-"+name) }),
   plugins: [
     'transform-decorators-legacy'
@@ -53,7 +52,6 @@ module.exports = {
   resolve: {
     modules: [resolve(rootDir, 'node_modules'), resolve(demoDir, 'node_modules')],
     alias: {
-      'deck.gl': libSources,
       // used by Mapbox
       webworkify: 'webworkify-webpack-dropin',
       // From mapbox-gl-js README. Required for non-browserify bundlers (e.g. webpack):

@@ -34,5 +34,5 @@ export const DEFAULT_VIS_STATE = {
 
 export const DEFAULT_APP_STATE = {
   headerOpacity: 1,
-  isMenuOpen: false
+  isMenuOpen: true
 };
