@@ -1,9 +1,9 @@
 {
-  "description": "Demo site for deck.gl",
+  "description": "Visualization Tutorial",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/uber/deck.gl.git"
+    "url": "https://github.com/abmai/vis-tutorial.git"
   },
   "main": "index.js",
   "scripts": {
@@ -20,23 +20,17 @@
     "babel-register": "^6.22.0",
     "d3-color": "^1.0.1",
     "d3-request": "^1.0.2",
-    "d3-scale": "^1.0.3",
-    "expr-eval": "^1.0.0",
     "highlight.js": "^9.7.0",
-    "immutable": "^3.7.5",
-    "luma.gl": "^3.0.0",
+    "immutable": "^3.8.1",
     "marked": "^0.3.6",
     "prop-types": "^15.5.8",
-    "rbush": "^2.0.1",
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
-    "react-map-gl": "^2.0.2",
     "react-redux": "^4.4.5",
     "react-router": "^2.8.1",
     "redux": "^3.6.0",
     "redux-actions": "^1.2.0",
     "redux-thunk": "^2.1.0",
-    "stats.js": "^0.17.0",
     "tween.js": "tweenjs/tween.js"
   },
   "devDependencies": {
