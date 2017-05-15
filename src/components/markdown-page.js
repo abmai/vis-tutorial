@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import marked from 'marked';
 import {markdownFiles} from '../constants/pages';
+import * as Demos from './demos';
 
 /**
  * This map allows you to rewrite urls present in the markdown files
@@ -177,6 +178,9 @@ export default class MarkdownPage extends PureComponent {
             if (!__html) {
               return null;
             }
+            if (Demos[__html]) {
+              return <div key={index}>{this.props.renderDemo(__html)}</div>;
+            }
             return <div key={index} className="markdown-body" dangerouslySetInnerHTML={{__html}} />;
           })
         }
@@ -188,7 +192,8 @@ export default class MarkdownPage extends PureComponent {
 }
 
 MarkdownPage.propTypes = {
-  content: PropTypes.string
+  content: PropTypes.string,
+  renderDemo: PropTypes.func.isRequired
 };
 
 MarkdownPage.defaultProps = {

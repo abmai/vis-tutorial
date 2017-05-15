@@ -46,7 +46,7 @@ export const docPages = generatePath([
     children: [
       {
         name: 'ArcLayer',
-        content: getDocUrl('layers/arc-layer.md')
+        content: getDocUrl('layers/mapping-app-layer.md')
       },
       {
         name: 'GeoJsonLayer',
@@ -87,6 +87,15 @@ export const docPages = generatePath([
       {
         name: 'ScreenGridLayer',
         content: getDocUrl('layers/screen-grid-layer.md')
+      }
+    ]
+  },
+  {
+    name: 'Examples',
+    children: [
+      {
+        name: 'A Mapping App',
+        content: getDocUrl('demos/mapping-app.md')
       }
     ]
   }

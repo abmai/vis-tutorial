@@ -23,11 +23,15 @@
     "highlight.js": "^9.7.0",
     "immutable": "^3.8.1",
     "marked": "^0.3.6",
+    "moment": "^2.18.1",
+    "moment-timezone": "^0.5.13",
     "prop-types": "^15.5.8",
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
+    "react-map-gl": "^2.0.2",
     "react-redux": "^4.4.5",
     "react-router": "^2.8.1",
+    "react-vis": "^1.5.0",
     "redux": "^3.6.0",
     "redux-actions": "^1.2.0",
     "redux-thunk": "^2.1.0",
@@ -45,11 +49,13 @@
     "babel-preset-stage-0": "^6.3.13",
     "brfs-babel": "^1.0.0",
     "css-loader": "^0.26.1",
+    "deck.gl": "^4.0.0",
     "eslint": "^3.0.0",
     "eslint-config-uber-es2015": "^3.0.0",
     "eslint-config-uber-jsx": "^3.0.0",
     "eslint-plugin-react": "^6.0.0",
     "file-loader": "^0.9.0",
+    "luma.gl": "^3.0.0",
     "node-sass": "^4.3.0",
     "raw-loader": "^0.5.1",
     "react-hot-loader": "next",
@@ -78,6 +84,10 @@
         ]
       }
     }
+  },
+  "engines": {
+    "node": "6.9.4",
+    "npm": "4.0.5"
   },
   "eslintConfig": {
     "parser": "babel-eslint",

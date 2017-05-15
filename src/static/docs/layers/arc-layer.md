@@ -22,7 +22,7 @@ const App = ({data, viewport}) => {
    * ]
    */
   const layer = new ArcLayer({
-    id: 'arc-layer',
+    id: mapping-app,
     data,
     strokeWdith: 2
   });

@@ -63,10 +63,8 @@ module.exports = {
     fs: 'empty'
   },
 
+  // Optional: Enables reading mapbox token from environment variable
   plugins: [
-    new webpack.DefinePlugin({
-      MAPBOX_ACCESS_TOKEN: `"${process.env.MAPBOX_ACCESS_TOKEN}"` // eslint-disable-line
-    })
+    new webpack.EnvironmentPlugin(['MAPBOX_ACCESS_TOKEN', 'MapboxAccessToken'])
   ]
-
 };

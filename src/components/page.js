@@ -5,6 +5,7 @@ import autobind from 'autobind-decorator';
 
 import MarkdownPage from './markdown-page';
 import {loadContent} from '../actions/app-actions';
+import * as Demos from './demos';
 
 class Page extends Component {
 
@@ -31,6 +32,16 @@ class Page extends Component {
     return content;
   }
 
+  @autobind _renderDemo(name, sourceLink) {
+    const DemoComponent = Demos[name];
+
+    return (
+      <div className="demo">
+        <DemoComponent/>
+      </div>
+    );
+  }
+
   // replaces the current query string in react-router
   @autobind _updateQueryString(queryString) {
     const {location: {pathname, search}} = this.props;
@@ -48,10 +59,13 @@ class Page extends Component {
 
     let child;
 
-    if (typeof content === 'string') {
+    if (content.demo) {
+      child = this._renderDemo(content.demo, content.code);
+    } else if (typeof content === 'string') {
       child = (<MarkdownPage content={contents[content]}
         query={query}
-        updateQueryString={this._updateQueryString} />);
+        updateQueryString={this._updateQueryString}
+        renderDemo={this._renderDemo} />);
     }
 
     return <div className="page">{child}</div>;
