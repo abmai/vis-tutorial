@@ -51,7 +51,7 @@ export default class DeckGLOverlay extends Component {
     }
 
     const layers = [
-      new ScatterplotLayer({
+      !settings.showHexagon ? new ScatterplotLayer({
         id: 'scatterplot',
         data,
         getPosition: d => d.position,
@@ -63,7 +63,7 @@ export default class DeckGLOverlay extends Component {
         radiusScale: 30,
         radiusMinPixels: 0.25,
         radiusMaxPixels: 30
-      }),
+      }) : null,
       settings.showHexagon ? new HexagonLayer({
         id: 'heatmap',
         colorRange: HEATMAP_COLORS,

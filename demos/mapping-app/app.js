@@ -12,11 +12,6 @@ const MAPBOX_STYLE = 'mapbox://styles/uberdata/cive485h000192imn6c6cc8fc';
 const MAPBOX_TOKEN = process.env.MAPBOX_ACCESS_TOKEN; // eslint-disable-line
 
 const LAYER_CONTROLS = {
-  showPoint: {
-    displayName: 'Show Scatterplot',
-    type: 'boolean',
-    value: true
-  },
   showHexagon: {
     displayName: 'Show Hexagon',
     type: 'boolean',
