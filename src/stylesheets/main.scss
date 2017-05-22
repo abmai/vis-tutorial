@@ -2,6 +2,7 @@
 @import 'markdown';
 @import 'mixins';
 @import 'icon';
+@import url('https://unpkg.com/react-vis@1.5.0/dist/style.css');
 
 $primary: #00ADE6;
 $secondary: #05E3D5;
@@ -293,4 +294,14 @@ hr.short {
     }
   }
 
+}
+
+@keyframes spin {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+}
+
+@keyframes fade {
+  from {opacity: 1;}
+  to {opacity: 0;}
 }
