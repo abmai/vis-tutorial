@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import marked from 'marked';
 import {markdownFiles} from '../constants/pages';
@@ -73,7 +73,7 @@ function renderMarkdown(content) {
     .replace(/\/demo\/src\/static\/images/g, 'images');
 }
 
-export default class MarkdownPage extends PureComponent {
+export default class MarkdownPage extends Component {
 
   constructor(props) {
     super(props);

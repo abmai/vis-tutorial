@@ -4,12 +4,13 @@ import MapGL from 'react-map-gl';
 import {csv as requestCsv} from 'd3-request';
 import DeckGLOverlay from './deckgl-overlay';
 import LayerControls from './layer-controls';
+import Spinner from './spinner';
+
 import {tooltipStyle} from './style';
 
 const MAPBOX_STYLE = 'mapbox://styles/uberdata/cive485h000192imn6c6cc8fc';
-
 // Set your mapbox token here
-const MAPBOX_TOKEN = process.env.MAPBOX_ACCESS_TOKEN; // eslint-disable-line
+const MAPBOX_TOKEN = 'pk.eyJ1IjoiamNrciIsImEiOiJjaXJnbHVzMnkwMTZkZzZucmdhdWo5aGFlIn0.X5jPZV3EvmIB01r2bMBjsg';
 
 const LAYER_CONTROLS = {
   showHexagon: {
@@ -62,31 +63,29 @@ export default class App extends Component {
       // hoverInfo
       x: 0,
       y: 0,
-      hoveredObject: null
+      hoveredObject: null,
+      status: 'LOADING'
     };
 
-    requestCsv('./data/taxi.csv', (error, response) => {
+    requestCsv('../data/taxi.csv', (error, response) => {
       if (!error) {
-
+        this.setState({status: 'LOADED'});
         const points = response.reduce((accu, curr) => {
-          if (!isNaN(Number(curr.pickup_longitude)) && !isNaN(Number(curr.pickup_latitude))) {
-            accu.push({
-              position: [Number(curr.pickup_longitude), Number(curr.pickup_latitude)],
-              pickup: true
-            });
-          }
+          accu.push({
+            position: [Number(curr.pickup_longitude), Number(curr.pickup_latitude)],
+            pickup: true
+          });
 
-          if (!isNaN(Number(curr.dropoff_longitude)) && !isNaN(Number(curr.dropoff_latitude))) {
-            accu.push({
-              position: [Number(curr.dropoff_longitude), Number(curr.dropoff_latitude)],
-              pickup: false
-            });
-          }
+          accu.push({
+            position: [Number(curr.dropoff_longitude), Number(curr.dropoff_latitude)],
+            pickup: false
+          });
           return accu;
         }, []);
 
         this.setState({
-          points
+          points,
+          status: 'READY'
         });
       }
     });
@@ -133,8 +132,7 @@ export default class App extends Component {
   }
 
   render() {
-    const {viewport, points, settings} = this.state;
-
+    const {viewport, points, settings, status} = this.state;
     return (
       <div>
         {this._renderTooltip()}
@@ -154,6 +152,7 @@ export default class App extends Component {
             onHover={this._onHover.bind(this)}
             settings={settings}/>
         </MapGL>
+        <Spinner status={status} />
       </div>
     );
   }

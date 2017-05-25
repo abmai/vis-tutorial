@@ -7,7 +7,6 @@ class Gallery extends Component {
 
   render() {
     const {children, route: {path, pages}, isMenuOpen} = this.props;
-
     return (
       <div className="gallery-wrapper">
         <div className="fullheight">
