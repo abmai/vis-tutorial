@@ -25,24 +25,23 @@ function generatePath(tree, parentPath = '') {
 
 export const docPages = generatePath([
   {
-    name: 'Examples',
-    children: [
-      {
-        name: 'A Mapping App',
-        content: getDocUrl('demos/mapping-app.md')
-      },
-      {
-        name: 'Adding charts',
-        content: getDocUrl('demos/mapping-app-with-charts.md')
-      },
-      {
-        name: 'Line charts',
-        content: getDocUrl('demos/line-charts.md')
-      },
-      {
-        name: 'Scatterplot',
-        content: getDocUrl('demos/scatterplot.md')
-      }
-    ]
+    name: 'Introduction',
+    content: getDocUrl('demos/introduction.md')
+  },
+  {
+    name: 'A Mapping App',
+    content: getDocUrl('demos/mapping-app.md')
+  },
+  {
+    name: 'Adding charts',
+    content: getDocUrl('demos/mapping-app-with-charts.md')
+  },
+  {
+    name: 'Line charts',
+    content: getDocUrl('demos/line-charts.md')
+  },
+  {
+    name: 'Scatterplot',
+    content: getDocUrl('demos/scatterplot.md')
   }
 ]);
