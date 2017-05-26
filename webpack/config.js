@@ -1,5 +1,6 @@
 const {resolve, join} = require('path');
 const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const rootDir = join(__dirname, '../..');
 const demoDir = join(__dirname, '..');
@@ -13,10 +14,14 @@ const BABEL_CONFIG = {
     'es2015',
     'react',
     'stage-0'
-  ].map(function(name) { return require.resolve("babel-preset-"+name) }),
+  ].map(function configMap(name) {
+    return require.resolve(`babel-preset-${name}`);
+  }),
   plugins: [
     'transform-decorators-legacy'
-  ].map(function(name) { return require.resolve("babel-plugin-"+name) })
+  ].map(function configMap(name) {
+    return require.resolve(`babel-plugin-${name}`);
+  })
 };
 
 module.exports = {
@@ -65,6 +70,15 @@ module.exports = {
 
   // Optional: Enables reading mapbox token from environment variable
   plugins: [
-    new webpack.EnvironmentPlugin(['MAPBOX_ACCESS_TOKEN', 'MapboxAccessToken'])
+    new webpack.EnvironmentPlugin(['MAPBOX_ACCESS_TOKEN', 'MapboxAccessToken']),
+    new CopyWebpackPlugin([
+      {
+        from: './docs',
+        to: 'docs'
+      },
+      {
+        from: './src/static'
+      }
+    ])
   ]
 };
