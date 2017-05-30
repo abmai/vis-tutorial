@@ -1,7 +1,6 @@
 /* global window */
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import MapGL from 'react-map-gl';
-import {csv as requestCsv} from 'd3-request';
 import DeckGLOverlay from './deckgl-overlay';
 import LayerControls from './layer-controls';
 import Spinner from './spinner';
@@ -10,7 +9,7 @@ import {tooltipStyle} from './style';
 
 const MAPBOX_STYLE = 'mapbox://styles/uberdata/cive485h000192imn6c6cc8fc';
 // Set your mapbox token here
-const MAPBOX_TOKEN = 'pk.eyJ1IjoiamNrciIsImEiOiJjaXJnbHVzMnkwMTZkZzZucmdhdWo5aGFlIn0.X5jPZV3EvmIB01r2bMBjsg';
+const MAPBOX_TOKEN = process.env.MAPBOX_ACCESS_TOKEN; // eslint-disable-line
 
 const LAYER_CONTROLS = {
   showHexagon: {
@@ -46,6 +45,11 @@ const LAYER_CONTROLS = {
 };
 
 export default class App extends Component {
+
+  static propTypes = {
+    taxiData: PropTypes.arrayOf(PropTypes.object)
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -66,34 +70,41 @@ export default class App extends Component {
       hoveredObject: null,
       status: 'LOADING'
     };
-
-    requestCsv('../data/taxi.csv', (error, response) => {
-      if (!error) {
-        this.setState({status: 'LOADED'});
-        const points = response.reduce((accu, curr) => {
-          accu.push({
-            position: [Number(curr.pickup_longitude), Number(curr.pickup_latitude)],
-            pickup: true
-          });
-
-          accu.push({
-            position: [Number(curr.dropoff_longitude), Number(curr.dropoff_latitude)],
-            pickup: false
-          });
-          return accu;
-        }, []);
-
-        this.setState({
-          points,
-          status: 'READY'
-        });
-      }
-    });
   }
 
   componentDidMount() {
+    this._processData(this.props);
     window.addEventListener('resize', this._resize.bind(this));
     this._resize();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.taxiData !== nextProps.taxiData) {
+      this._processData(nextProps);
+    }
+  }
+
+  _processData({taxiData}) {
+    if (taxiData) {
+      this.setState({status: 'LOADED'});
+      const points = taxiData.reduce((accu, curr) => {
+        accu.push({
+          position: [Number(curr.pickup_longitude), Number(curr.pickup_latitude)],
+          pickup: true
+        });
+
+        accu.push({
+          position: [Number(curr.dropoff_longitude), Number(curr.dropoff_latitude)],
+          pickup: false
+        });
+        return accu;
+      }, []);
+
+      this.setState({
+        points,
+        status: 'READY'
+      });
+    }
   }
 
   updateLayerSettings(settings) {

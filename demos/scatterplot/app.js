@@ -1,7 +1,6 @@
 /* global window */
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import MapGL from 'react-map-gl';
-import {csv as requestCsv} from 'd3-request';
 import DeckGLOverlay from './deckgl-overlay';
 import LayerControls from './layer-controls';
 import Charts from './charts';
@@ -45,21 +44,26 @@ const LAYER_CONTROLS = {
 };
 
 const chartInfo = {
-  'BAR': {
+  BAR: {
     title: 'Pickups by hour',
     next: 'LINE'
   },
-  'LINE': {
+  LINE: {
     title: 'Pickups and dropoffs',
     next: 'SCATTERPLOT'
   },
-  'SCATTERPLOT': {
+  SCATTERPLOT: {
     title: 'Distance vs Amount',
     next: 'BAR'
   }
 };
 
 export default class App extends Component {
+
+  static propTypes = {
+    taxiData: PropTypes.arrayOf(PropTypes.object)
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -80,68 +84,78 @@ export default class App extends Component {
       hoveredObject: null,
       status: 'LOADING'
     };
-
-    requestCsv('../data/taxi.csv', (error, response) => {
-      if (!error) {
-        this.setState({status: 'LOADED'});
-        const data = response.reduce((accu, curr) => {
-
-          const pickupTime = curr.tpep_pickup_datetime || "";
-          const dropoffTime = curr.tpep_dropoff_datetime || "";
-
-          const distance = curr.trip_distance;
-          const amount = curr.total_amount;
-
-          if (!isNaN(Number(curr.pickup_longitude)) && !isNaN(Number(curr.pickup_latitude))) {
-            accu.points.push({
-              position: [Number(curr.pickup_longitude), Number(curr.pickup_latitude)],
-              pickup: true
-            });
-          }
-
-          if (!isNaN(Number(curr.dropoff_longitude)) && !isNaN(Number(curr.dropoff_latitude))) {
-            accu.points.push({
-              position: [Number(curr.dropoff_longitude), Number(curr.dropoff_latitude)],
-              pickup: false
-            });
-          }
-
-          const pickupHour = pickupTime.slice(11, 13);
-          const dropoffHour = dropoffTime.slice(11, 13);
-
-          const prevPickups = accu.pickupObj[pickupHour] || 0;
-          const prevDropoffs = accu.dropoffObj[dropoffHour] || 0;
-
-          accu.pickupObj[pickupHour] = prevPickups + 1;
-          accu.dropoffObj[dropoffHour] = prevDropoffs + 1;
-          
-          if (distance > 0 && amount > 0) {
-            accu.scatterplot.push({x: distance, y: amount, opacity: 0.2});
-          }
-
-          return accu;
-        }, {
-          points: [],
-          pickupObj: {},
-          dropoffObj: {},
-          scatterplot: []
-        });
-
-        data.scatterplot = data.scatterplot.sort(() => Math.random() - 0.5).slice(0, 10000);
-
-        data.pickups = Object.entries(data.pickupObj).map(d => ({x: Number(d[0]), y: d[1]})).sort((a, b) => a.x < b.x ? 1 : -1);
-        data.dropoffs = Object.entries(data.dropoffObj).map(d => ({x: Number(d[0]), y: d[1]})).sort((a, b) => a.x < b.x ? 1 : -1);
-
-        data.status = 'READY';
-
-        this.setState(data);
-      }
-    });
   }
 
   componentDidMount() {
+    this._processData(this.props);
     window.addEventListener('resize', this._resize.bind(this));
     this._resize();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.taxiData !== nextProps.taxiData) {
+      this._processData(nextProps);
+    }
+  }
+
+  _processData({taxiData}) {
+    if (taxiData) {
+      this.setState({status: 'LOADED'});
+      const data = taxiData.reduce((accu, curr) => {
+        const pickupTime = curr.tpep_pickup_datetime || '';
+        const dropoffTime = curr.tpep_dropoff_datetime || '';
+
+        const distance = curr.trip_distance;
+        const amount = curr.total_amount;
+
+        if (!isNaN(Number(curr.pickup_longitude)) && !isNaN(Number(curr.pickup_latitude))) {
+          accu.points.push({
+            position: [Number(curr.pickup_longitude), Number(curr.pickup_latitude)],
+            pickup: true
+          });
+        }
+
+        if (!isNaN(Number(curr.dropoff_longitude)) && !isNaN(Number(curr.dropoff_latitude))) {
+          accu.points.push({
+            position: [Number(curr.dropoff_longitude), Number(curr.dropoff_latitude)],
+            pickup: false
+          });
+        }
+
+        const pickupHour = pickupTime.slice(11, 13);
+        const dropoffHour = dropoffTime.slice(11, 13);
+
+        const prevPickups = accu.pickupObj[pickupHour] || 0;
+        const prevDropoffs = accu.dropoffObj[dropoffHour] || 0;
+
+        accu.pickupObj[pickupHour] = prevPickups + 1;
+        accu.dropoffObj[dropoffHour] = prevDropoffs + 1;
+
+        if (distance > 0 && amount > 0) {
+          accu.scatterplot.push({x: distance, y: amount, opacity: 0.2});
+        }
+
+        return accu;
+      }, {
+        points: [],
+        pickupObj: {},
+        dropoffObj: {},
+        scatterplot: []
+      });
+
+      data.scatterplot = data.scatterplot.sort(() => Math.random() - 0.5).slice(0, 10000);
+
+      data.pickups = Object.entries(data.pickupObj)
+        .map((d) => ({x: Number(d[0]), y: d[1]}))
+        .sort((a, b) => a.x < b.x ? 1 : -1);
+      data.dropoffs = Object.entries(data.dropoffObj)
+        .map(d => ({x: Number(d[0]), y: d[1]}))
+        .sort((a, b) => a.x < b.x ? 1 : -1);
+
+      data.status = 'READY';
+
+      this.setState(data);
+    }
   }
 
   updateLayerSettings(settings) {
@@ -183,7 +197,10 @@ export default class App extends Component {
   }
 
   render() {
-    const {chartType, viewport, dropoffs, pickups, points, scatterplot, settings, status} = this.state;
+    const {
+      chartType, viewport, dropoffs, pickups, points, scatterplot,
+      settings, status
+    } = this.state;
 
     return (
       <div>

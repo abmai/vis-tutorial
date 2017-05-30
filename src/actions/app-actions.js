@@ -1,4 +1,4 @@
-import {request, json, text} from 'd3-request';
+import {request, json, text, csv} from 'd3-request';
 
 import {StreamParser} from '../utils/worker-utils';
 
@@ -8,9 +8,24 @@ const loadContentSuccess = (name, content) => {
   return {type: 'LOAD_CONTENT', payload};
 };
 
-const loadContentStart = name => loadContentSuccess(name, '');
+const loadContentStart = (name) => loadContentSuccess(name, '');
 
-export const loadContent = filename => {
+export const loadCsv = (filename) => {
+  return (dispatch, getState) => {
+    const {contents} = getState();
+    if (filename in contents) {
+      // already loaded
+      return;
+    }
+    dispatch(loadContentStart(filename));
+    csv(filename, (error, response) => {
+      dispatch(loadContentSuccess(filename, error ? error.target.response : response));
+    });
+
+  };
+};
+
+export const loadContent = (filename) => {
   return (dispatch, getState) => {
     const {contents} = getState();
     if (filename in contents) {
@@ -26,7 +41,7 @@ export const loadContent = filename => {
   };
 };
 
-const loadDataStart = owner => ({type: 'LOAD_DATA_START', owner});
+const loadDataStart = (owner) => ({type: 'LOAD_DATA_START', owner});
 
 const loadDataSuccess = (context, index, data, meta) => {
 
@@ -112,9 +127,5 @@ export const loadData = (owner, source) => {
   };
 };
 
-export const updateMap = viewport => ({type: 'UPDATE_MAP', viewport});
-export const updateMeta = meta => ({type: 'UPDATE_META', meta});
-export const updateParam = (name, value) => ({type: 'UPDATE_PARAM', payload: {name, value}});
-export const useParams = params => ({type: 'USE_PARAMS', params});
 export const toggleMenu = isOpen => ({type: 'TOGGLE_MENU', isOpen});
 export const setHeaderOpacity = opacity => ({type: 'SET_HEADER_OPACITY', opacity});

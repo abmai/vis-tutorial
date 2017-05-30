@@ -1,36 +1,27 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-
-import {toggleMenu, setHeaderOpacity} from '../actions/app-actions';
 import Header from './header';
+import {loadCsv} from '../actions/app-actions';
 
 import '../stylesheets/main.scss';
 
 class App extends Component {
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.location !== nextProps.location) {
-      this.props.setHeaderOpacity(1);
-      this.props.toggleMenu(false);
-    }
+  componentWillMount() {
+    // Preload taxi data
+    this.props.loadCsv('data/taxi.csv');
   }
 
   render() {
-    const {children, isMenuOpen, headerOpacity} = this.props;
+    const {children} = this.props;
 
     return (
       <div>
-        <Header
-          isMenuOpen={isMenuOpen}
-          toggleMenu={this.props.toggleMenu}
-          opacity={headerOpacity} />
+        <Header />
         {children}
       </div>
     );
   }
 }
 
-export default connect(
-  state => state.app,
-  {toggleMenu, setHeaderOpacity}
-)(App);
+export default connect((state) => state.app, {loadCsv})(App);

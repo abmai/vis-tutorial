@@ -7,9 +7,9 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config webpack/dev --open",
+    "start": "webpack-dev-server --config webpack.dev.config --open",
     "build-clean": "rm -rf ./dist && mkdir dist",
-    "build-script": "webpack -p --config webpack/prod",
+    "build-script": "webpack -p --config webpack.dev.prod",
     "build": "npm run build-clean && npm run build-script",
     "lint": "eslint src --ignore-pattern workers"
   },
@@ -27,7 +27,7 @@
     "prop-types": "^15.5.8",
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
-    "react-map-gl": "^2.0.2",
+    "react-map-gl": "v2.0.3",
     "react-redux": "^4.4.5",
     "react-router": "^2.8.1",
     "react-vis": "^1.5.0",

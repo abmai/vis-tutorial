@@ -34,10 +34,12 @@ class Page extends Component {
 
   @autobind _renderDemo(name, sourceLink) {
     const DemoComponent = Demos[name];
+    const {contents} = this.props;
+    const taxiData = contents['data/taxi.csv'];
 
     return (
       <div className="demo">
-        <DemoComponent/>
+        <DemoComponent taxiData={taxiData} />
       </div>
     );
   }

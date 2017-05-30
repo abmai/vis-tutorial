@@ -7,7 +7,7 @@ const messages = {
   READY: 'HI!'
 }
 
-const speeds = new Array(20).fill(0).map((d, i) => ({speed: 2 - .025 * i, size: 5 + i * 0.2})); 
+const speeds = new Array(20).fill(0).map((d, i) => ({speed: 2 - .025 * i, size: 5 + i * 0.2}));
 
 export default function Spinner({status}) {
 

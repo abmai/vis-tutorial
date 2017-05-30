@@ -9,9 +9,12 @@ function generatePath(tree, parentPath = '') {
   if (Array.isArray(tree)) {
     tree.forEach(branch => generatePath(branch, parentPath));
   }
-  /* eslint-disable max-len */
   if (tree.name) {
-    tree.path = tree.name.match(/(GeoJson|3D|API|([A-Z]|^)[a-z'0-9]+|\d+)/g).join('-').toLowerCase().replace(/[^\w-]/g, '');
+    tree.path = tree.name
+      .match(/(GeoJson|3D|API|([A-Z]|^)[a-z'0-9]+|\d+)/g)
+      .join('-')
+      .toLowerCase()
+      .replace(/[^\w-]/g, '');
   }
   if (tree.children) {
     generatePath(tree.children, `${parentPath}/${tree.path}`);

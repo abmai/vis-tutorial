@@ -15,7 +15,7 @@ class Gallery extends Component {
               <TableOfContents parentRoute={path} pages={pages} isOpen={isMenuOpen} />
             </div>
             <div className={'flexbox-item flexbox-item--fill'}>
-              { children }
+              {children}
             </div>
           </div>
         </div>
