@@ -1,6 +1,6 @@
 <!-- INJECT:"LineCharts" -->
 
-# Line charts
+# Line Charts
 
 Line charts, in react-vis, are not so different from bar charts.
 

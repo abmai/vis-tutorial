@@ -1,10 +1,10 @@
-<!-- INJECT:"MappingAppWithCharts" -->
+<!-- INJECT:"AddCharts" -->
 
-# Adding charts with React-Vis
+# Adding Charts with React-Vis
 
-[React-Vis](http://uber.github.io/react-vis) is the Uber library for rendering charts with React. 
+[React-Vis](http://uber.github.io/react-vis) is the Uber library for rendering charts with React.
 
-In React Vis, creating a chart has a nice React-y feeling of assembling components one into another. 
+In React Vis, creating a chart has a nice React-y feeling of assembling components one into another.
 
 First, we are going to create a simple bar chart of dropoffs by hour.
 
@@ -21,20 +21,20 @@ Then, we are going to create our barchart using the following React-Vis componen
       <XAxis />
       <YAxis />
       <VerticalBarSeries data={pickups} />
-    </XYPlot> 
+    </XYPlot>
 
 ```
 
-In just 8 lines of code we have a bar chart with axes. 
-XYPlot is the wrapper of React-Vis component. It must be given a height and a width, although React-Vis provides a way to make responsive charts as well. 
+In just 8 lines of code we have a bar chart with axes.
+XYPlot is the wrapper of React-Vis component. It must be given a height and a width, although React-Vis provides a way to make responsive charts as well.
 
-Inside our XYPlot component, we just add the components that we need in the order that we want: 
+Inside our XYPlot component, we just add the components that we need in the order that we want:
 
 XAxis is our horizontal axis, YAxis is our vertical axis, and VerticalBarSeries is the series of data proper.
 
 ## Now iterate:
 
-XYPlot has a property, margin, which defines the interior spacing. Its default values are set for larger charts. So let's change this: 
+XYPlot has a property, margin, which defines the interior spacing. Its default values are set for larger charts. So let's change this:
 
 ```js
 <XYPlot
@@ -44,8 +44,8 @@ XYPlot has a property, margin, which defines the interior spacing. Its default v
 >
 ```
 
-Also, our bar chart values are cut at by the axes. That's because the *x-domain* of the chart, which is what is going to be shown by the chart, is defined by the data. 
-Let's be clever and adjust it: 
+Also, our bar chart values are cut at by the axes. That's because the *x-domain* of the chart, which is what is going to be shown by the chart, is defined by the data.
+Let's be clever and adjust it:
 
 ```js
 <VerticalBarSeries data={pickups}
@@ -53,10 +53,10 @@ Let's be clever and adjust it:
     />
 ```
 
-Our Y-Axis values are not super legible. So let's format them: 
+Our Y-Axis values are not super legible. So let's format them:
 
 ```js
-<YAxis 
+<YAxis
   tickFormat={(t) => Math.round(t / 1000) + 'k'}
 />
 ```
@@ -76,10 +76,10 @@ Final code:
       height={140}
       width={280}
     >
-    <YAxis 
+    <YAxis
       tickFormat={(t) => Math.round(t / 1000) + 'k'}
     />
-    <VerticalBarSeries data={pickups} 
+    <VerticalBarSeries data={pickups}
     xDomain={[-0.5, 23.5]}
     />
     <XAxis tickPadding={2}/>

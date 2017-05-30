@@ -1,4 +1,5 @@
-export {default as MappingApp} from '../../../demos/mapping-app/app';
-export {default as MappingAppWithCharts} from '../../../demos/mapping-app-with-charts/app';
+export {default as StartingWithMap} from '../../../demos/starting-with-map/app';
+export {default as ScatterplotOverlay} from '../../../demos/scatterplot-overlay/app';
+export {default as AddCharts} from '../../../demos/add-charts/app';
 export {default as LineCharts} from '../../../demos/line-charts/app';
-export {default as Scatterplot} from '../../../demos/scatterplot/app';
+export {default as ScatterplotCharts} from '../../../demos/scatterplot-charts/app';

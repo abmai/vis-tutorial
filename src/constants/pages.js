@@ -32,19 +32,23 @@ export const docPages = generatePath([
     content: getDocUrl('demos/introduction.md')
   },
   {
-    name: 'A Mapping App',
-    content: getDocUrl('demos/mapping-app.md')
+    name: 'Starting With a Map',
+    content: getDocUrl('demos/starting-with-map.md')
   },
   {
-    name: 'Adding charts',
-    content: getDocUrl('demos/mapping-app-with-charts.md')
+    name: 'Scatterplot Overlay',
+    content: getDocUrl('demos/scatterplot-overlay.md')
   },
   {
-    name: 'Line charts',
+    name: 'Add Charts',
+    content: getDocUrl('demos/add-charts.md')
+  },
+  {
+    name: 'Line Charts',
     content: getDocUrl('demos/line-charts.md')
   },
   {
-    name: 'Scatterplot',
-    content: getDocUrl('demos/scatterplot.md')
+    name: 'Scatterplot Charts',
+    content: getDocUrl('demos/scatterplot-charts.md')
   }
 ]);
