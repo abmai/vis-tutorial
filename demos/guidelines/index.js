@@ -203,3 +203,36 @@ export function DontSimpleChart() {
     </XYPlot>
   </div>);
 }
+
+export function LessSimpleChart() {
+  return (<div className="guideline-chart">
+    <XYPlot width={600} height={300}>
+      <XAxis 
+      xDomain={[0, 24]}
+      tickValues={[...data.map((d, i) => i), 24]} />
+      <YAxis/>
+      <VerticalBarSeries 
+        xDomain={[0, 24]}
+        data={data.map(d => ({x: d.hour + 0.5, y: d.pickups}))} 
+      />
+    </XYPlot>
+  </div>);
+}
+
+export function ChartWithContext() {
+  return (<div className="guideline-chart" style={{border: '1px solid #E5E5E4', padding: 20, maxWidth: 700}}>
+    <h1 style={{fontSize: '2em', borderBottom: "none"}}>Distribution of pickups over time</h1>
+    <p>As a percentage of all trips that day</p>
+    <XYPlot width={600} height={300}>
+      <XAxis
+      xDomain={[0, 24]}
+      tickValues={[...data.map((d, i) => i), 24]} />
+      <YAxis/>
+      <VerticalBarSeries
+        xDomain={[0, 24]}
+        data={data.map(d => ({x: d.hour + 0.5, y: d.pickups / 100}))} 
+      />
+    </XYPlot>
+    <p style={{textAlign: 'end'}}><i>Source: NYC Taxi and Limousine Commission (sample of trips on Oct 15th, 2015)</i></p>
+  </div>);
+}
