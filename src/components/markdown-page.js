@@ -38,6 +38,8 @@ const imageRewrites = {};
 /* Look for demo injection tag */
 const INJECTION_REG = /<!-- INJECT:"(.+)\" -->/g;
 
+const INSERT_REG = /<!-- INSERT:"(.+)\" -->/g;
+
 /* Markdown renderer */
 marked.setOptions({
   // code highlight
@@ -174,14 +176,23 @@ export default class MarkdownPage extends Component {
     return (
       <div className="markdown" ref="container" onScroll={this._onScroll.bind(this)}>
         {
-          html.split(INJECTION_REG).map((__html, index) => {
-            if (!__html) {
+          html.split(INJECTION_REG).map((content, index) => {
+            if (!content) {
               return null;
             }
-            if (Demos[__html]) {
-              return <div key={index}>{this.props.renderDemo(__html)}</div>;
+            if (Demos[content]) {
+              return <div key={index}>{this.props.renderDemo(content)}</div>;
             }
-            return <div key={index} className="markdown-body" dangerouslySetInnerHTML={{__html}} />;
+            return (<div key={index} className="markdown-body">
+              {content.split(INSERT_REG).map((__html, i) => {
+                if (!__html) {
+                  return null;
+                }
+                if (Demos[__html]) {
+                  return <div key={i}>{this.props.renderDemo(__html, true)}</div>; 
+                }
+                return <div key={i} className="markdown-body" dangerouslySetInnerHTML={{__html}} />;
+            })}</div>);
           })
         }
       </div>

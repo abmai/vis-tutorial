@@ -3,3 +3,5 @@ export {default as ScatterplotOverlay} from '../../../demos/scatterplot-overlay/
 export {default as AddCharts} from '../../../demos/add-charts/app';
 export {default as LineCharts} from '../../../demos/line-charts/app';
 export {default as ScatterplotCharts} from '../../../demos/scatterplot-charts/app';
+
+export {DontSimpleChart} from '../../../demos/guidelines/';

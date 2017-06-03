@@ -32,13 +32,13 @@ class Page extends Component {
     return content;
   }
 
-  @autobind _renderDemo(name, sourceLink) {
+  @autobind _renderDemo(name, isInline) {
     const DemoComponent = Demos[name];
     const {contents} = this.props;
     const taxiData = contents['data/taxi.csv'];
 
     return (
-      <div className="demo">
+      <div className={isInline ? "inline-code" : "demo"}>
         <DemoComponent taxiData={taxiData} />
       </div>
     );
