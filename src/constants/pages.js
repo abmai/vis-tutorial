@@ -9,7 +9,7 @@ function generatePath(tree, parentPath = '') {
   if (Array.isArray(tree)) {
     tree.forEach(branch => generatePath(branch, parentPath));
   }
-  if (tree.name) {
+  if (tree.name && !tree.path) {
     tree.path = tree.name
       .match(/(GeoJson|3D|API|([A-Z]|^)[a-z'0-9]+|\d+)/g)
       .join('-')
@@ -28,27 +28,67 @@ function generatePath(tree, parentPath = '') {
 
 export const docPages = generatePath([
   {
-    name: 'Introduction',
+    name: 'Welcome!',
     content: getDocUrl('demos/introduction.md')
   },
   {
-    name: 'Starting With a Map',
-    content: getDocUrl('demos/starting-with-map.md')
+    name: 'React Map GL',
+    children: [
+      {
+        name: 'Starting With a Map',
+        content: getDocUrl('demos/starting-with-map.md')
+      }
+    ]
   },
   {
-    name: 'Scatterplot Overlay',
-    content: getDocUrl('demos/scatterplot-overlay.md')
+    name: 'Deck GL',
+    children: [
+      {
+        name: 'Scatterplot Overlay',
+        content: getDocUrl('demos/scatterplot-overlay.md')
+      }
+    ]
   },
   {
-    name: 'Add Charts',
-    content: getDocUrl('demos/add-charts.md')
+    name: 'React Vis',
+    children: [
+      {
+        name: 'Add Charts',
+        content: getDocUrl('demos/add-charts.md')
+      },
+      {
+        name: 'Line Charts',
+        content: getDocUrl('demos/line-charts.md')
+      },
+      {
+        name: 'Scatterplot Charts',
+        content: getDocUrl('demos/scatterplot-charts.md')
+      }
+    ]
   },
   {
-    name: 'Line Charts',
-    content: getDocUrl('demos/line-charts.md')
-  },
-  {
-    name: 'Scatterplot Charts',
-    content: getDocUrl('demos/scatterplot-charts.md')
+    name: `Visualization guidelines`,
+    children: [
+      {
+        name: `Do - clear simple charts`,
+        path: 'simple',
+        content: getDocUrl('guidelines/simple.md')
+      },
+      {
+        name: `Don't - too much to see`,
+        path: 'toomuch',
+        content: getDocUrl('guidelines/toomuch.md')
+      },
+      {
+        name: `Do - use hierarchy`,
+        path: 'hiearchy',
+        content: getDocUrl('guidelines/hierarchy.md')
+      },
+      {
+        name: `Don't - confusing axes`,
+        path: 'axes',
+        content: getDocUrl('guidelines/axes.md')
+      }
+    ]
   }
 ]);
