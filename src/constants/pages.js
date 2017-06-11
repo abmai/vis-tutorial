@@ -46,6 +46,10 @@ export const docPages = generatePath([
       {
         name: 'Scatterplot Overlay',
         content: getDocUrl('demos/scatterplot-overlay.md')
+      },
+      {
+        name: 'Hexagon Overlay',
+        content: getDocUrl('demos/hexagon-overlay.md')
       }
     ]
   },

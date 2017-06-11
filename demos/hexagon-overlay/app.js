@@ -12,6 +12,35 @@ const MAPBOX_STYLE = 'mapbox://styles/uberdata/cive485h000192imn6c6cc8fc';
 const MAPBOX_TOKEN = process.env.MAPBOX_ACCESS_TOKEN; // eslint-disable-line
 
 const LAYER_CONTROLS = {
+  showHexagon: {
+    displayName: 'Show Hexagon',
+    type: 'boolean',
+    value: true
+  },
+  radius: {
+    displayName: 'Hexagon Radius',
+    type: 'range',
+    value: 250,
+    step: 50,
+    min: 50,
+    max: 1000
+  },
+  coverage: {
+    displayName: 'Hexagon Coverage',
+    type: 'range',
+    value: 0.7,
+    step: 0.1,
+    min: 0,
+    max: 1
+  },
+  upperPercentile: {
+    displayName: 'Hexagon Upper Percentile',
+    type: 'range',
+    value: 100,
+    step: 0.1,
+    min: 80,
+    max: 100
+  },
   radiusScale: {
     displayName: 'Scatterplot Radius',
     type: 'range',

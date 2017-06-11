@@ -19,7 +19,7 @@ const LAYER_CONTROLS = {
     value: false
   },
   radius: {
-    displayName: 'Radius',
+    displayName: 'Hexagon Radius',
     type: 'range',
     value: 250,
     step: 50,
@@ -27,7 +27,7 @@ const LAYER_CONTROLS = {
     max: 1000
   },
   coverage: {
-    displayName: 'Coverage',
+    displayName: 'Hexagon Coverage',
     type: 'range',
     value: 0.7,
     step: 0.1,
@@ -35,12 +35,20 @@ const LAYER_CONTROLS = {
     max: 1
   },
   upperPercentile: {
-    displayName: 'Upper Percentile',
+    displayName: 'Hexagon Upper Percentile',
     type: 'range',
     value: 100,
     step: 0.1,
     min: 80,
     max: 100
+  },
+  radiusScale: {
+    displayName: 'Scatterplot Radius',
+    type: 'range',
+    value: 30,
+    step: 10,
+    min: 10,
+    max: 200
   }
 };
 
