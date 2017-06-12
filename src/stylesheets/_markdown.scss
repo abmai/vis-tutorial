@@ -19,7 +19,11 @@ Github Markdown Stylesheet (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresor
 }
 
 .markdown-body .badges {
-  float: right;
+   float: right;
+ }
+
+.markdown-body .inline-images img {
+  display: inline-block;
 }
 
 .markdown-body .pl-c {

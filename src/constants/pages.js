@@ -94,5 +94,15 @@ export const docPages = generatePath([
         content: getDocUrl('guidelines/axes.md')
       }
     ]
+  },
+  {
+    name: 'Mapping guidelines',
+    children: [
+      {
+        name: 'Mapping types',
+        path: 'simple',
+        content: getDocUrl('guidelines/mapping.md')
+      },
+    ]
   }
 ]);
