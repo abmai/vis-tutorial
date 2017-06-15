@@ -134,8 +134,8 @@ export default class App extends Component {
         scatterplot: []
       });
 
-      data.pickups = Object.entries(data.pickupObj).map(d => ({x: Number(d[0]), y: d[1]}));
-      data.dropoffs = Object.entries(data.dropoffObj).map(d => ({x: Number(d[0]), y: d[1]}));
+      data.pickups = Object.entries(data.pickupObj).map(d => ({x: Number(d[0]) + 0.5, y: d[1]}));
+      data.dropoffs = Object.entries(data.dropoffObj).map(d => ({x: Number(d[0]) + 0.5, y: d[1]}));
       data.status = 'READY';
 
       this.setState(data);

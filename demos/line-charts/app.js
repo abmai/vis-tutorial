@@ -9,7 +9,8 @@ import {tooltipStyle} from './style';
 
 const MAPBOX_STYLE = 'mapbox://styles/uberdata/cive485h000192imn6c6cc8fc';
 // Set your mapbox token here
-const MAPBOX_TOKEN = process.env.MAPBOX_ACCESS_TOKEN; // eslint-disable-line
+// const MAPBOX_TOKEN = process.env.MAPBOX_ACCESS_TOKEN; // eslint-disable-line
+const MAPBOX_TOKEN = 'pk.eyJ1IjoiamNrciIsImEiOiJjaXJnbHVzMnkwMTZkZzZucmdhdWo5aGFlIn0.X5jPZV3EvmIB01r2bMBjsg';// process.env.MAPBOX_ACCESS_TOKEN; // eslint-disable-line
 
 const LAYER_CONTROLS = {
   showHexagon: {
@@ -54,10 +55,12 @@ const LAYER_CONTROLS = {
 const chartInfo = {
   BAR: {
     title: 'Pickups by hour',
+    subtitle: 'As percentage of all trips',
     next: 'LINE'
   },
   LINE: {
     title: 'Pickups and dropoffs',
+    subtitle: 'As percentage of all trips',
     next: 'BAR'
   }
 };
@@ -141,10 +144,10 @@ export default class App extends Component {
       });
 
       data.pickups = Object.entries(data.pickupObj)
-        .map((d) => ({x: Number(d[0]), y: d[1]}))
+        .map((d) => ({x: Number(d[0]) + 0.5, y: d[1]}))
         .sort((a, b) => a.x < b.x ? 1 : -1);
       data.dropoffs = Object.entries(data.dropoffObj)
-        .map((d) => ({x: Number(d[0]), y: d[1]}))
+        .map((d) => ({x: Number(d[0]) + 0.5, y: d[1]}))
         .sort((a, b) => a.x < b.x ? 1 : -1);
       data.status = 'READY';
       this.setState(data);
@@ -220,6 +223,7 @@ export default class App extends Component {
           dropoffs={dropoffs}
           pickups={pickups}
           scatter={scatterplot}
+          subtitle={chartInfo[chartType].subtitle}
           title={chartInfo[chartType].title}
         />
         <Spinner status={status} />
