@@ -4,8 +4,6 @@ import {charts} from './style';
 import {XYPlot, VerticalBarSeries, XAxis, YAxis
 } from 'react-vis';
 export default function Charts({pickups}) {
-  console.log(pickups);
-
   if (!pickups) {
     return (<div style={charts}/>);
   }
