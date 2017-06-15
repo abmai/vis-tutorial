@@ -10,7 +10,7 @@ import {tooltipStyle} from './style';
 
 const MAPBOX_STYLE = 'mapbox://styles/uberdata/cive485h000192imn6c6cc8fc';
 // Set your mapbox token here
-const MAPBOX_TOKEN = process.env.MAPBOX_ACCESS_TOKEN; // eslint-disable-line
+const MAPBOX_TOKEN = 'pk.eyJ1IjoiamNrciIsImEiOiJjaXJnbHVzMnkwMTZkZzZucmdhdWo5aGFlIn0.X5jPZV3EvmIB01r2bMBjsg';// process.env.MAPBOX_ACCESS_TOKEN; // eslint-disable-line
 
 const LAYER_CONTROLS = {
   showHexagon: {
@@ -134,8 +134,8 @@ export default class App extends Component {
         scatterplot: []
       });
 
-      data.pickups = Object.entries(data.pickupObj).map(d => ({x: Number(d[0]), y: d[1]}));
-      data.dropoffs = Object.entries(data.dropoffObj).map(d => ({x: Number(d[0]), y: d[1]}));
+      data.pickups = Object.entries(data.pickupObj).map(d => ({x: Number(d[0]) + 0.5, y: d[1]}));
+      data.dropoffs = Object.entries(data.dropoffObj).map(d => ({x: Number(d[0]) + 0.5, y: d[1]}));
       data.status = 'READY';
 
       this.setState(data);

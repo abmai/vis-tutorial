@@ -9,7 +9,8 @@ import Spinner from './spinner';
 
 const MAPBOX_STYLE = 'mapbox://styles/uberdata/cive485h000192imn6c6cc8fc';
 // Set your mapbox token here
-const MAPBOX_TOKEN = process.env.MAPBOX_ACCESS_TOKEN; // eslint-disable-line
+// const MAPBOX_TOKEN = process.env.MAPBOX_ACCESS_TOKEN; // eslint-disable-line
+const MAPBOX_TOKEN = 'pk.eyJ1IjoiamNrciIsImEiOiJjaXJnbHVzMnkwMTZkZzZucmdhdWo5aGFlIn0.X5jPZV3EvmIB01r2bMBjsg';// process.env.MAPBOX_ACCESS_TOKEN; // eslint-disable-line
 
 const LAYER_CONTROLS = {
   showHexagon: {
@@ -46,14 +47,17 @@ const LAYER_CONTROLS = {
 const chartInfo = {
   BAR: {
     title: 'Pickups by hour',
+    subtitle: 'As percentage of all trips',
     next: 'LINE'
   },
   LINE: {
     title: 'Pickups and dropoffs',
+    subtitle: 'As percentage of all trips',
     next: 'SCATTERPLOT'
   },
   SCATTERPLOT: {
     title: 'Distance vs Amount',
+    subtitle: 'Miles and USD',
     next: 'BAR'
   }
 };
@@ -143,13 +147,11 @@ export default class App extends Component {
         scatterplot: []
       });
 
-      data.scatterplot = data.scatterplot.sort(() => Math.random() - 0.5).slice(0, 10000);
-
       data.pickups = Object.entries(data.pickupObj)
-        .map((d) => ({x: Number(d[0]), y: d[1]}))
+        .map((d) => ({x: Number(d[0]) + 0.5, y: d[1]}))
         .sort((a, b) => a.x < b.x ? 1 : -1);
       data.dropoffs = Object.entries(data.dropoffObj)
-        .map(d => ({x: Number(d[0]), y: d[1]}))
+        .map(d => ({x: Number(d[0]) + 0.5, y: d[1]}))
         .sort((a, b) => a.x < b.x ? 1 : -1);
 
       data.status = 'READY';
@@ -227,6 +229,7 @@ export default class App extends Component {
           dropoffs={dropoffs}
           pickups={pickups}
           scatterplot={scatterplot}
+          subtitle={chartInfo[chartType].subtitle}
           title={chartInfo[chartType].title}
         />
         <Spinner status={status} />
