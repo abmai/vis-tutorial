@@ -189,7 +189,7 @@ export default class MarkdownPage extends Component {
                   return null;
                 }
                 if (Demos[__html]) {
-                  return <div key={i}>{this.props.renderDemo(__html, true)}</div>; 
+                  return <div key={i}>{this.props.renderDemo(__html, true)}</div>;
                 }
                 return <div key={i} className="markdown-body" dangerouslySetInnerHTML={{__html}} />;
             })}</div>);

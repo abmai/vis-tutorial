@@ -1,4 +1,4 @@
-import {request, json, text, csv} from 'd3-request';
+import {request, json, text} from 'd3-request';
 
 import {StreamParser} from '../utils/worker-utils';
 
@@ -9,21 +9,6 @@ const loadContentSuccess = (name, content) => {
 };
 
 const loadContentStart = (name) => loadContentSuccess(name, '');
-
-export const loadCsv = (filename) => {
-  return (dispatch, getState) => {
-    const {contents} = getState();
-    if (filename in contents) {
-      // already loaded
-      return;
-    }
-    dispatch(loadContentStart(filename));
-    csv(filename, (error, response) => {
-      dispatch(loadContentSuccess(filename, error ? error.target.response : response));
-    });
-
-  };
-};
 
 export const loadContent = (filename) => {
   return (dispatch, getState) => {

@@ -34,12 +34,10 @@ class Page extends Component {
 
   @autobind _renderDemo(name, isInline) {
     const DemoComponent = Demos[name];
-    const {contents} = this.props;
-    const taxiData = contents['data/taxi.csv'];
 
     return (
       <div className={isInline ? "inline-code" : "demo"}>
-        <DemoComponent taxiData={taxiData} />
+        <DemoComponent />
       </div>
     );
   }

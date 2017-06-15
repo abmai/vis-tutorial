@@ -40,6 +40,14 @@ module.exports = {
       test: /\.scss$/,
       loaders: ['style-loader', 'css-loader', 'sass-loader', 'autoprefixer-loader']
     }, {
+      test: /\.csv$/,
+      loader: 'csv-loader',
+      options: {
+        dynamicTyping: true,
+        header: true,
+        skipEmptyLines: true
+      }
+    }, {
       test: /\.(eot|svg|ttf|woff|woff2|gif|jpe?g|png)$/,
       loader: 'url-loader'
     }, {

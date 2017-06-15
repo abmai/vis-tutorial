@@ -1,11 +1,12 @@
 /* global window */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import MapGL from 'react-map-gl';
 import DeckGLOverlay from './deckgl-overlay';
 import LayerControls from './layer-controls';
 import Spinner from './spinner';
-
 import {tooltipStyle} from './style';
+
+import taxiData from '../data/taxi.csv';
 
 const MAPBOX_STYLE = 'mapbox://styles/uberdata/cive485h000192imn6c6cc8fc';
 // Set your mapbox token here
@@ -53,10 +54,6 @@ const LAYER_CONTROLS = {
 
 export default class App extends Component {
 
-  static propTypes = {
-    taxiData: PropTypes.arrayOf(PropTypes.object)
-  };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -80,18 +77,12 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    this._processData(this.props);
+    this._processData();
     window.addEventListener('resize', this._resize.bind(this));
     this._resize();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.taxiData !== nextProps.taxiData) {
-      this._processData(nextProps);
-    }
-  }
-
-  _processData({taxiData}) {
+  _processData() {
     if (taxiData) {
       this.setState({status: 'LOADED'});
       const points = taxiData.reduce((accu, curr) => {
