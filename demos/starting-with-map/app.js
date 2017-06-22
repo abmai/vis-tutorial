@@ -12,8 +12,8 @@ export default class App extends Component {
     super(props);
     this.state = {
       viewport: {
-        width: 500,
-        height: 500,
+        width: window.innerWidth,
+        height: window.innerHeight,
         longitude: -74,
         latitude: 40.7,
         zoom: 11,
@@ -27,14 +27,14 @@ export default class App extends Component {
     this._resize();
   }
 
-  _onChangeViewport(viewport) {
+  _onViewportChange(viewport) {
     this.setState({
       viewport: {...this.state.viewport, ...viewport}
     });
   }
 
   _resize() {
-    this._onChangeViewport({
+    this._onViewportChange({
       width: window.innerWidth,
       height: window.innerHeight
     });
@@ -47,7 +47,7 @@ export default class App extends Component {
         <MapGL
           {...viewport}
           mapStyle={MAPBOX_STYLE}
-          onChangeViewport={this._onChangeViewport.bind(this)}
+          onViewportChange={this._onViewportChange.bind(this)}
           mapboxApiAccessToken={MAPBOX_TOKEN} />
       </div>
     );
