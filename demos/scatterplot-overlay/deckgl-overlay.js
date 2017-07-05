@@ -1,22 +1,10 @@
 import React, {Component} from 'react';
-
 import DeckGL, {ScatterplotLayer} from 'deck.gl';
 
 const PICKUP_COLOR = [0, 128, 255];
 const DROPOFF_COLOR = [255, 0, 128];
 
 export default class DeckGLOverlay extends Component {
-
-  static get defaultViewport() {
-    return {
-      longitude: -74,
-      latitude: 40.7,
-      zoom: 11,
-      maxZoom: 16,
-      pitch: 0,
-      bearing: 0
-    };
-  }
 
   render() {
     const {viewport, data, onHover, settings} = this.props;

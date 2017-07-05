@@ -4,7 +4,7 @@ import MapGL from 'react-map-gl';
 
 const MAPBOX_STYLE = 'mapbox://styles/uberdata/cive485h000192imn6c6cc8fc';
 // Set your mapbox token here
-const MAPBOX_TOKEN = process.env.MAPBOX_ACCESS_TOKEN; // eslint-disable-line
+const MAPBOX_TOKEN = process.env.MapboxAccessToken; // eslint-disable-line
 
 export default class App extends Component {
 
@@ -25,6 +25,10 @@ export default class App extends Component {
   componentDidMount() {
     window.addEventListener('resize', this._resize.bind(this));
     this._resize();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._resize.bind(this));
   }
 
   _onViewportChange(viewport) {

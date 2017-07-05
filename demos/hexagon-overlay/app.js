@@ -10,7 +10,7 @@ import taxiData from '../data/taxi.csv';
 
 const MAPBOX_STYLE = 'mapbox://styles/uberdata/cive485h000192imn6c6cc8fc';
 // Set your mapbox token here
-const MAPBOX_TOKEN = process.env.MAPBOX_ACCESS_TOKEN; // eslint-disable-line
+const MAPBOX_TOKEN = process.env.MapboxAccessToken; // eslint-disable-line
 
 const LAYER_CONTROLS = {
   showHexagon: {
