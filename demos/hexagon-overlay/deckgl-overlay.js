@@ -1,17 +1,16 @@
 import React, {Component} from 'react';
-
 import DeckGL, {ScatterplotLayer, HexagonLayer} from 'deck.gl';
 
 const PICKUP_COLOR = [0, 128, 255];
 const DROPOFF_COLOR = [255, 0, 128];
 
 const HEATMAP_COLORS = [
-  [213,62,79],
-  [252,141,89],
-  [254,224,139],
-  [230,245,152],
-  [153,213,148],
-  [50,136,189]
+  [213, 62, 79],
+  [252, 141, 89],
+  [254, 224, 139],
+  [230, 245, 152],
+  [153, 213, 148],
+  [50, 136, 189]
 ].reverse();
 
 const LIGHT_SETTINGS = {
@@ -26,17 +25,6 @@ const LIGHT_SETTINGS = {
 const elevationRange = [0, 1000];
 
 export default class DeckGLOverlay extends Component {
-
-  static get defaultViewport() {
-    return {
-      longitude: -74,
-      latitude: 40.7,
-      zoom: 11,
-      maxZoom: 16,
-      pitch: 0,
-      bearing: 0
-    };
-  }
 
   _initialize(gl) {
     gl.enable(gl.DEPTH_TEST);
@@ -79,7 +67,7 @@ export default class DeckGLOverlay extends Component {
         pickable: true,
         radius: settings.radius,
         upperPercentile: settings.upperPercentile
-      }): null
+      }) : null
     ];
 
     return (

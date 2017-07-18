@@ -5,7 +5,6 @@ import DeckGLOverlay from './deckgl-overlay';
 import LayerControls from './layer-controls';
 import Spinner from './spinner';
 import {tooltipStyle} from './style';
-
 import taxiData from '../data/taxi.csv';
 
 const MAPBOX_STYLE = 'mapbox://styles/uberdata/cive485h000192imn6c6cc8fc';
@@ -58,16 +57,18 @@ export default class App extends Component {
     super(props);
     this.state = {
       viewport: {
-        ...DeckGLOverlay.defaultViewport,
-        width: 500,
-        height: 500
+        width: window.innerWidth,
+        height: window.innerHeight,
+        longitude: -74,
+        latitude: 40.7,
+        zoom: 11,
+        maxZoom: 16
       },
       points: [],
       settings: Object.keys(LAYER_CONTROLS).reduce((accu, key) => ({
         ...accu,
         [key]: LAYER_CONTROLS[key].value
       }), {}),
-
       // hoverInfo
       x: 0,
       y: 0,
@@ -97,7 +98,6 @@ export default class App extends Component {
         });
         return accu;
       }, []);
-
       this.setState({
         points,
         status: 'READY'
@@ -113,38 +113,27 @@ export default class App extends Component {
     this.setState({x, y, hoveredObject: object});
   }
 
-  _onChangeViewport(viewport) {
+  _onViewportChange(viewport) {
     this.setState({
       viewport: {...this.state.viewport, ...viewport}
     });
   }
 
   _resize() {
-    this._onChangeViewport({
+    this._onViewportChange({
       width: window.innerWidth,
       height: window.innerHeight
     });
   }
 
-  _renderTooltip() {
-    const {x, y, hoveredObject} = this.state;
-
-    if (!hoveredObject) {
-      return null;
-    }
-
-    return (
-      <div style={{...tooltipStyle, left: x, top: y}}>
-        <div>{hoveredObject.id}</div>
-      </div>
-    );
-  }
-
   render() {
-    const {viewport, points, settings, status} = this.state;
+    const {viewport, points, settings, status, x, y, hoveredObject} = this.state;
     return (
       <div>
-        {this._renderTooltip()}
+        {hoveredObject &&
+          <div style={{...tooltipStyle, left: x, top: y}}>
+            <div>{hoveredObject.id}</div>
+          </div>}
         <LayerControls
           settings={settings}
           propTypes={LAYER_CONTROLS}
@@ -152,8 +141,7 @@ export default class App extends Component {
         <MapGL
           {...viewport}
           mapStyle={MAPBOX_STYLE}
-          perspectiveEnabled={true}
-          onChangeViewport={this._onChangeViewport.bind(this)}
+          onViewportChange={this._onViewportChange.bind(this)}
           mapboxApiAccessToken={MAPBOX_TOKEN}>
           <DeckGLOverlay
             viewport={viewport}
