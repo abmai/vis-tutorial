@@ -99,10 +99,25 @@ export const docPages = generatePath([
     name: 'Mapping guidelines',
     children: [
       {
-        name: 'Mapping types',
+        name: 'Overkay types',
         path: 'simple',
         content: getDocUrl('guidelines/mapping.md')
       },
+      {
+        name: 'Scatterplot',
+        path: 'scatterplot',
+        content: getDocUrl('guidelines/scatterplot.md')
+      },
+      {
+        name: 'Arc',
+        path: 'arc',
+        content: getDocUrl('guidelines/arc.md')
+      },
+      {
+        name: 'Hexagon',
+        path: 'hexagon',
+        content: getDocUrl('guidelines/hexagon.md')
+      }
     ]
   }
 ]);
